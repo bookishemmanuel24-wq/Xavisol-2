@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d1a">
+  <meta name="description" content="Xavisol helps university and polytechnic students understand difficult topics, research smarter, and prepare for exams.">
+  <title>Xavisol — Your Academic Success Partner</title>
+
+  <style>
+    :root {
+      --bg: #080d1a;
+      --panel: #111a2d;
+      --panel-light: #17233a;
+      --text: #f4f7ff;
+      --muted: #9caac3;
+      --accent: #7c83ff;
+      --accent2: #38d9c3;
+      --border: #26334c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    button, textarea, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 7%;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 13, 26, .95);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -.7px;
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #a75cff);
+    }
+
+    .nav-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    main {
+      width: min(1000px, 92%);
+      margin: auto;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 10px 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 13px;
+      border: 1px solid #414780;
+      border-radius: 30px;
+      color: #c7caff;
+      background: #171d3a;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 7vw, 58px);
+      line-height: 1.12;
+      letter-spacing: -2px;
+      margin-bottom: 17px;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, #9a9fff, #43e2ce);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 590px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .chat-card {
+      max-width: 790px;
+      margin: 18px auto 40px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    }
+
+    .chat-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .bot-icon {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 14px;
+      background: #272b54;
+      font-size: 22px;
+    }
+
+    .chat-heading h2 {
+      font-size: 16px;
+    }
+
+    .chat-heading p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .messages {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 360px;
+      overflow-y: auto;
+      margin-bottom: 17px;
+    }
+
+    .message {
+      max-width: 90%;
+      padding: 12px 15px;
+      border-radius: 15px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+    }
+
+    .assistant {
+      align-self: flex-start;
+      background: var(--panel-light);
+      border: 1px solid var(--border);
+    }
+
+    .user {
+      align-self: flex-end;
+      background: #454ac2;
+    }
+
+    .input-area {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid #36445e;
+      border-radius: 15px;
+      background: #0b1222;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 48px;
+      max-height: 140px;
+      resize: vertical;
+      border: 0;
+      outline: 0;
+      color: var(--text);
+      background: transparent;
+      padding: 12px 5px;
+    }
+
+    textarea::placeholder {
+      color: #8492aa;
+    }
+
+    .send {
+      min-width: 48px;
+      height: 46px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--accent);
+      color: white;
+      font-size: 20px;
+    }
+
+    .send:disabled {
+      opacity: .5;
+    }
+
+    .notice {
+      margin-top: 10px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 40px 0 22px;
+    }
+
+    .section-title h2 {
+      font-size: 25px;
+      margin-bottom: 6px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 50px;
+    }
+
+    .tool {
+      text-align: left;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: var(--panel);
+      color: var(--text);
+      transition: transform .2s, border-color .2s;
+    }
+
+    .tool:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .tool-icon {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .tool h3 {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .tool p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .courses {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 55px;
+    }
+
+    .course {
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 8px 14px;
+      background: var(--panel);
+      color: #dbe3f6;
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 25px 15px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer strong {
+      color: var(--text);
+    }
+
+    @media (max-width: 650px) {
+      .navbar {
+        padding: 14px 5%;
+      }
+
+      .nav-label {
+        font-size: 11px;
+      }
+
+      .hero {
+        padding-top: 43px;
+      }
+
+      h1 {
+        letter-spacing: -1.2px;
+      }
+
+      .chat-card {
+        padding: 15px;
+      }
+
+      .tools {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .tool {
+        padding: 13px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .tools {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <a class="brand" href="#" aria-label="Xavisol homepage">
+      <span class="logo">X</span>
+      <span>Xavisol</span>
+    </a>
+    <span class="nav-label">Your Academic Success Partner</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="badge">🎓 Built for University & Polytechnic Students</span>
+      <h1>Study smarter.<br><span class="gradient">Achieve more.</span></h1>
+      <p>
+        Understand difficult topics, explore new ideas, improve your
+        research, and prepare for exams with your academic assistant.
+      </p>
+    </section>
+
+    <section class="chat-card" id="chat">
+      <div class="chat-heading">
+        <div class="bot-icon">✦</div>
+        <div>
+          <h2>Xavisol Academic Assistant</h2>
+          <p>Ask a question about any course or subject</p>
+        </div>
+      </div>
+
+      <div class="messages" id="messages" aria-live="polite">
+        <div class="message assistant">
+          Hello! 👋 Welcome to Xavisol.
+
+          What are you studying today? Ask me a question about mathematics,
+          science, engineering, business, law, agriculture, programming,
+          research, or another academic subject.
+
+          I'll help you understand the topic step by step.
+        </div>
+      </div>
+
+      <form id="chatForm">
+        <div class="input-area">
+          <textarea id="question" rows="1"
+            placeholder="Ask your academic question..."
+            aria-label="Your academic question"
+            required></textarea>
+          <button class="send" id="send" type="submit"
+            aria-label="Send question">↑</button>
+        </div>
+      </form>
+
+      <p class="notice" id="notice">
+        Demo mode: connect an AI service to receive generated answers.
+      </p>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>What can Xavisol help you with?</h2>
+        <p>Explore your academic tools.</p>
+      </div>
+
+      <div class="tools">
+        <button class="tool" data-prompt="Explain this topic in simple terms and give a practical example: ">
+          <span class="tool-icon">📚</span>
+          <h3>Explain a Topic</h3>
+          <p>Understand difficult concepts more easily.</p>
+        </button>
+
+        <button class="tool" data-prompt="Help me develop an academic project outline for this topic: ">
+          <span class="tool-icon">📝</span>
+          <h3>Project Assistant</h3>
+          <p>Develop topics, proposals, and outlines.</p>
+        </button>
+
+        <button class="tool" data-prompt="Explain the appropriate research methodology for this topic: ">
+          <span class="tool-icon">🔬</span>
+          <h3>Research Support</h3>
+          <p>Learn research methods and study design.</p>
+        </button>
+
+        <button class="tool" data-prompt="Solve this mathematics problem step by step and explain your reasoning: ">
+          <span class="tool-icon">➗</span>
+          <h3>Math Solver</h3>
+          <p>Work through problems step by step.</p>
+        </button>
+
+        <button class="tool" data-prompt="Explain this programming question and help me solve it: ">
+          <span class="tool-icon">💻</span>
+          <h3>Coding Assistant</h3>
+          <p>Understand code and programming concepts.</p>
+        </button>
+
+        <button class="tool" data-prompt="Create a revision guide and practice questions about: ">
+          <span class="tool-icon">🎯</span>
+          <h3>Exam Preparation</h3>
+          <p>Revise topics and test your knowledge.</p>
+        </button>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>One platform. Many disciplines.</h2>
+        <p>Academic support across different fields of study.</p>
+      </div>
+
+      <div class="courses">
+        <span class="course">Engineering</span>
+        <span class="course">Computer Science</span>
+        <span class="course">Medicine & Health</span>
+        <span class="course">Law</span>
+        <span class="course">Business</span>
+        <span class="course">Agriculture</span>
+        <span class="course">Mathematics</span>
+        <span class="course">Natural Sciences</span>
+        <span class="course">Social Sciences</span>
+        <span class="course">Arts & Humanities</span>
+        <span class="course">Education</span>
+        <span class="course">Economics</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Xavisol</strong> — Learn with confidence. Grow with knowledge.</p>
+    <p>Designed to support learning across university and polytechnic courses.</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("chatForm");
+    const input = document.getElementById("question");
+    const messages = document.getElementById("messages");
+    const notice = document.getElementById("notice");
+
+    function addMessage(text, type) {
+      const message = document.createElement("div");
+      message.className = "message " + type;
+      message.textContent = text;
+      messages.appendChild(message);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const question = input.value.trim();
+      if (!question) return;
+
+      addMessage(question, "user");
+      input.value = "";
+
+      addMessage(
+        "Thanks for your question! The Xavisol interface is working, " +
+        "but its AI service has not been connected yet. Our next step is " +
+        "to connect a secure AI backend so I can generate a direct answer " +
+        "to your question.",
+        "assistant"
+      );
+
+      notice.textContent =
+        "Demo mode: your question is displayed, but no AI answer has been generated.";
+    });
+
+    document.querySelectorAll(".tool").forEach(function(button) {
+      button.addEventListener("click", function() {
+        input.value = button.dataset.prompt;
+        input.focus();
+        document.getElementById("chat").scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      });
+    });
+  </script>
+</body>
+</html>
